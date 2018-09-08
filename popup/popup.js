@@ -26,9 +26,8 @@ function displayLogout(on, handle) {
 
 function changeHandle() {
     var handle = document.getElementById('handle').value;
-    var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, 
+    var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, null,
     function(data) {
-        alert("data: " + data);
         if (data.result) {
             chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
                 displayLogin(false);
