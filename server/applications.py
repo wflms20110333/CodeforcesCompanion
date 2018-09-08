@@ -38,11 +38,7 @@ def insert():
 
 @app.route("/checkHandle")
 def checkHandle():
-<<<<<<< HEAD
     return jsonify(result=cf_api.isValidUser(request.args['handle'])); 
-=======
-    return jsonify(result=cf_api.isValidUser(request.args['handle']))
->>>>>>> fe8a09b94e67fcadcff3b7198c9b0b8fda0d15bf
 
 @app.route('/update')
 def update():

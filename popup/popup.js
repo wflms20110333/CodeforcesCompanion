@@ -61,6 +61,7 @@ function changeHandle() {
         }
     });
     */
+   
     chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
         displayLogin(false);
         displayLogout(true, handle);
