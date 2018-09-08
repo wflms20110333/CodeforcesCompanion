@@ -1,6 +1,10 @@
 import helper
+import requests
 from database import create_connection
 from flask import Flask, request, jsonify
+from flask_session import Session
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 app = Flask(__name__)
 conn = create_connection("cf.db")
@@ -8,19 +12,25 @@ db = conn.cursor()
 
 @app.route('/')
 def index():
-    return 'hello_world'
+    return 'hello'
 
-# request:
-# contestid , index
-@app.route('/lookup', methods=["GET", "POST"])
+@app.route('/look')
 def lookup():
-    # lookup on database
-    if request.method == 'POST':
-        if not request.form['contestid']:
-            return None
-        if not request.form['index']:
-            return None
-        look_id = helper.gen_id(request.form['contestid'], request.form['index'])
+    if request.args['contestid'] is None:
+        return 'hi'
+    if request.args['index'] is None:
+        return 'hello'
+    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+    res = db.execute("SELECT * FROM problems WHERE id = {0}".format(look_id)).fetchall()
+    if not res:
+        return 'ur bad'
+    return jsonify({
+        'contestID' : request.args['contestid'],
+        'index' : request.args['index'],
+        'name' : res[0][1],
+        'rating' : res[0][2],
+        'tags' : res[0][3]
+    })
 
 
 

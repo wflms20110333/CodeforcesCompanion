@@ -1,3 +1,3 @@
 
 def gen_id(contestID, problemID):
-    return contestID * 26 + problemID - 'A'
+    return int(contestID) * 26 + ord(problemID[0]) - 65
