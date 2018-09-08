@@ -1,0 +1,31 @@
+body
+{
+    min-width: 200px;
+}
+
+.hoverable
+{
+    cursor: pointer;
+    padding: 10px 35px;
+    background-image: url(background-main.png);
+    text-align: center;
+}
+
+.hoverable:hover
+{
+    background: -moz-linear-gradient(top, rgba(70, 50, 0, 0.1), rgba(70, 50, 0, 0.1)), url(background-main.png);
+    background: -webkit-linear-gradient(top, rgba(70, 50, 0, 0.1), rgba(70, 50, 0, 0.1)), url(background-main.png);
+    background: linear-gradient(to bottom, rgba(70, 50, 0, 0.1), rgba(70, 50, 0, 0.1)), url(background-main.png);
+}
+
+header img
+{
+    float: left;
+    padding-left: 5px;
+}
+
+header h2
+{
+    position: relative;
+    padding-left: 30px;
+}

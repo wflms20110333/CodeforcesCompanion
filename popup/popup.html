@@ -1,0 +1,53 @@
+<!--
+  - This file is part of /*name*/ </*link*/>,
+  - Copyright (C) 2018-present A. Arjun, R. Guo, A. Nguyen, E. Zou
+  -->
+
+<!DOCTYPE html>
+
+<html lang="en-US" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <title>CfShenanigans</title>
+</head>
+
+<!-- Set tabindex to work around Chromium issue 304532 -->
+<body tabindex="1" class="local">
+    <header>
+        <img id="logo" src="../icon.png" srcset="../icon.png 8x"/>
+        <h2>CfShenanigans</h2>
+    </header>
+
+    <div class="hoverable" id="suggested" style="display: block;">
+        <span>Suggested Problem:</span><br>
+        <span>A. Game</span><br>
+        <span>Codeforces Round #483 (Div. 2)</span>
+    </div>
+
+    <hr/>
+
+    <div class="hoverable" id="change">
+        <span>Change Category</span>
+    </div>
+
+    <hr/>
+
+    <form id="login" style="display: none;">
+        <label for="handle">Handle:</label>
+        <input type="text" id="handle" name="handle" size="15" value="" />
+        <input id="save" type="submit" value="Login" />
+    </form>
+
+    <div id="logoutDisplay" style="display: none;">
+        <span id="handleDisplay"></span>
+        <div class="hoverable" id="logout">
+            <span>Logout</span>
+        </div>
+    </div>
+</body>
+
+</html-->
+
+<script src="../source/jquery-3.3.1.js"></script>
+<script type="text/javascript" src= "popup.js"></script>
