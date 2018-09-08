@@ -5,7 +5,7 @@ chrome.runtime.sendMessage({task: "checkState"}, function(response) {
         displayLogout(true, response.handle);
 });
 
-document.getElementById('login').addEventListener('submit', changeHandle);
+document.getElementById('login').addEventListener('submit', tryToChangeHandle);
 document.getElementById('logout').addEventListener('click', logout);
 
 function displayLogin(on) {
@@ -24,21 +24,24 @@ function displayLogout(on, handle) {
         document.getElementById("logoutDisplay").style.display = "none";
 }
 
-function changeHandle() {
+function tryToChangeHandle() {
     var handle = document.getElementById('handle').value;
     var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, null,
     function(data) {
-        if (data.result) {
-            chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
-                displayLogin(false);
-                displayLogout(true, handle);
-            });
-        }
+        if (data.yay)
+            changeHandle(handle);
         else
             alert("Invalid Handle!");
-    });
+    }).fail(alert);
     alert(heh);
-    alert(heh.result);
+    alert(heh.result); // IDEK WHAT'S GOING ON MAN
+}
+
+function changeHandle(handle) {
+    chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
+        displayLogin(false);
+        displayLogout(true, handle);
+    });
 }
 
 function logout() {
