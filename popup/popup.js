@@ -28,15 +28,18 @@ function changeHandle() {
     var handle = document.getElementById('handle').value;
     var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, 
     function(data) {
+        alert("data: " + data);
         if (data.result) {
             chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
                 displayLogin(false);
                 displayLogout(true, handle);
             });
         }
+        else
+            alert("Invalid Handle!");
     });
-    console.log(heh);
-    console.log(heh.result);
+    alert(heh);
+    alert(heh.result);
 }
 
 function logout() {
