@@ -27,6 +27,7 @@ function displayLogout(on, handle) {
 function changeHandle() {
     var handle = document.getElementById('handle').value;
     alert(handle);
+    /*
     $.ajax({
         type: "POST",
         url: "../server/cf_api.py",
@@ -37,6 +38,9 @@ function changeHandle() {
             return;
     });
     alert("hi");
+    */
+
+    
     /*
     $.ajax({
         type:'get',
