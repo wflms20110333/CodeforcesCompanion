@@ -98,3 +98,11 @@ def getContestList():
     contests = r.json()['result']
     df_contests = pd.DataFrame.from_dict(contests)
     return list(df_contests.loc[df_contests.phase == 'FINISHED']['id'])
+
+def isValidUser(handle):
+    url = 'https://codeforces.com/api/user.info?handles=' + handle
+    r = requests.get(url)
+
+    info = r.json()
+
+    return 'result' in info
