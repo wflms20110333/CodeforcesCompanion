@@ -5,9 +5,8 @@ chrome.runtime.sendMessage({task: "checkState"}, function(response) {
         displayLogout(true, response.handle);
 });
 
-// document.getElementById('login').addEventListener('click', openOptions);
-
 document.getElementById('login').addEventListener('submit', changeHandle);
+document.getElementById('logout').addEventListener('click', logout);
 
 function displayLogin(on) {
     if (on)
@@ -27,10 +26,16 @@ function displayLogout(on, handle) {
 
 function changeHandle() {
     var handle = document.getElementById('handle').value;
-    //document.getElementById('wurl').value = "";
     chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
         displayLogin(false);
         displayLogout(true, handle);
+    });
+}
+
+function logout() {
+    chrome.runtime.sendMessage({task: "logout"}, function(response) {
+        displayLogin(true);
+        displayLogout(false, null);
     });
 }
 
