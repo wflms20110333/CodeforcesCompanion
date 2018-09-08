@@ -33,8 +33,8 @@ def insert():
     if not request.args['contestid'] or not request.args['index'] or not request.args['rating'] or not request.args['tags']:
         return None
     look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    res = db.execute("INSERT INTO problems (id, rating, tags) VALUES ({}, {}, {})".format(
-        look_id, request.args['rating'], request.args['tags']))
+    res = db.execute("INSERT INTO problems (id, rating, tags) VALUES ({0}, {1}, {2})".format(look_id, request.args['rating'], request.args['tags']))
+    return 'hello'
 
 @app.route('/update')
 def update():

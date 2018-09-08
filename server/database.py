@@ -3,7 +3,6 @@ from sqlite3 import Error
 
 create_problem_table = "CREATE TABLE IF NOT EXISTS problems ("\
     "id INTEGER PRIMARY KEY,"\
-    "name TEXT NOT NULL,"\
     "rating INTEGER,"\
     "tags BLOB"\
 ");"
