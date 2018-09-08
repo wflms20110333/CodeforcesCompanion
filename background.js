@@ -13,5 +13,8 @@ chrome.runtime.onMessage.addListener(
         else if (request.task == "changeHandle") {
             handle = request.handle;
         }
+        else if (request.task == "logout") {
+            handle = null;
+        }
     }
 );
