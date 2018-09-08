@@ -41,8 +41,6 @@ def insert():
 @app.route("/checkHandle")
 def checkHandle():
     return jsonify(result=cf_api.isValidUser(request.args['handle'])); 
-    res = db.execute("INSERT INTO problems (id, rating, tags) VALUES ({}, {}, {})".format(
-        look_id, request.args['rating'], request.args['tags']))
 
 @app.route('/update')
 def update():

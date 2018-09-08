@@ -27,6 +27,12 @@ function displayLogout(on, handle) {
 function changeHandle() {
     var handle = document.getElementById('handle').value;
     alert(handle);
+
+    $.getJSON('?????/checkHandle?handle=' + handle, 
+    function(data, textStatus, jqXHR) {
+        alert(data);
+    }
+
     /*
     $.ajax({
         type: "POST",
