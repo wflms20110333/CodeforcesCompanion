@@ -24,8 +24,6 @@ def get_contest_elo(contestID):
 
 
 
-
-
 def process_probability(r):
     return get_solve_probability(r['rating'], r['problemRating'])
 

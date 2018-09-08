@@ -1,5 +1,4 @@
 import helper
-import requests
 from database import create_connection
 from flask import Flask, request, jsonify
 from flask_session import Session
@@ -33,4 +32,8 @@ def lookup():
     })
 
 
-
+@app.route('/insert')
+def insert():
+    # test for possible defects
+    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+    res = db.execute("INSERT INTO problems (id, name, )")
