@@ -1,9 +1,6 @@
 import helper
 from database import create_connection
 from flask import Flask, request, jsonify
-from flask_session import Session
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
 import cf_api
 
 app = Flask(__name__)
@@ -36,12 +33,15 @@ def insert():
     if not request.args['contestid'] or not request.args['index'] or not request.args['rating'] or not request.args['tags']:
         return None
     look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+    res = db.execute("INSERT INTO problems (id, rating, tags) VALUES ({0}, {1}, {2})".format(look_id, request.args['rating'], request.args['tags']))
+    return 'hello'
 
 @app.route("/checkHandle")
 def checkHandle():
 <<<<<<< HEAD
     return jsonify(result=cf_api.isValidUser(request.args['handle'])); 
 =======
+    return jsonify(result=cf_api.isValidUser(request.args['handle']))
 >>>>>>> fe8a09b94e67fcadcff3b7198c9b0b8fda0d15bf
 
 @app.route('/update')
