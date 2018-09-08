@@ -31,15 +31,17 @@
 
     <hr/>
 
-    <div style="display: block;">
-        <span id="handle">Not logged in</span>
-    </div>
-    <div class="hoverable" id="login" style="display: none;">
+    <form id="login" style="display: none;">
         <label for="handle">Handle:</label>
-        <input type="text" id="handle" name="minutes1" size="10" value="" />
-    </div>
-    <div class="hoverable" id="logout" style="display: none;">
-        <span>Logout</span>
+        <input type="text" id="handle" name="handle" size="15" value="" />
+        <input id="save" type="submit" value="Login" />
+    </form>
+
+    <div id="logoutDisplay" style="display: none;">
+        <span id="handleDisplay"></span>
+        <div class="hoverable" id="logout">
+            <span>Logout</span>
+        </div>
     </div>
 </body>
 

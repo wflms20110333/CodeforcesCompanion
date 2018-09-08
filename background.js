@@ -10,5 +10,8 @@ chrome.runtime.onMessage.addListener(
         if (request.task == "checkState") {
             sendResponse({handle: handle});
         }
+        else if (request.task == "changeHandle") {
+            handle = request.handle;
+        }
     }
 );
