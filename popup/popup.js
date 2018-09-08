@@ -26,6 +26,20 @@ function displayLogout(on, handle) {
 
 function changeHandle() {
     var handle = document.getElementById('handle').value;
+    alert(handle);
+    $.ajax({
+        type:'get',
+        url:'/URLToTriggerGetRequestHandler',
+        cache:false,
+        async:'asynchronous',
+        dataType:'json',
+        success: function(data) {
+            console.log(JSON.stringify(data))
+        },
+        error: function(request, status, error) {
+            console.log("Error: " + error)
+        }
+    });
     chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
         displayLogin(false);
         displayLogout(true, handle);
