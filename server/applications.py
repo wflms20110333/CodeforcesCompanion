@@ -36,11 +36,13 @@ def insert():
     if not request.args['contestid'] or not request.args['index'] or not request.args['rating'] or not request.args['tags']:
         return None
     look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    res = db.execute("INSERT INTO problems (id, name, )")
 
 @app.route("/checkHandle")
 def checkHandle():
+<<<<<<< HEAD
     return jsonify(result=cf_api.isValidUser(request.args['handle'])); 
+=======
+>>>>>>> fe8a09b94e67fcadcff3b7198c9b0b8fda0d15bf
 
 @app.route('/update')
 def update():
