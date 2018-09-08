@@ -40,7 +40,6 @@ function changeHandle() {
     alert("hi");
     */
 
-    
     /*
     $.ajax({
         type:'get',

@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_session import Session
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+import cf_api
 
 app = Flask(__name__)
 conn = create_connection("cf.db")
@@ -31,9 +32,12 @@ def lookup():
         'tags' : res[0][3]
     })
 
-
 @app.route('/insert')
 def insert():
     # test for possible defects
     look_id = helper.gen_id(request.args['contestid'], request.args['index'])
     res = db.execute("INSERT INTO problems (id, name, )")
+
+@app.route("/checkHandle")
+def checkHandle():
+    return jsonify(result=cf_api.isValidUser(request.args['handle'])); 
