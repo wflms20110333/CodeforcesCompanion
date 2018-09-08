@@ -24,7 +24,7 @@
     //"https://*/*"
   //],
 
-  "options_page": "options/options.html",
+  "options_page": "options/options.html"//,
 
   //"icons": {
     //"16": "icon16.png",
