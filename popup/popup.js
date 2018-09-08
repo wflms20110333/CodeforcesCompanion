@@ -28,6 +28,17 @@ function changeHandle() {
     var handle = document.getElementById('handle').value;
     alert(handle);
     $.ajax({
+        type: "POST",
+        url: "../server/cf_api.py",
+        data: {param: handle}
+    }).done(function(o) {
+        alert(o);
+        if (!o.isValidUser(handle))
+            return;
+    });
+    alert("hi");
+    /*
+    $.ajax({
         type:'get',
         url:'/URLToTriggerGetRequestHandler',
         cache:false,
@@ -40,6 +51,7 @@ function changeHandle() {
             console.log("Error: " + error)
         }
     });
+    */
     chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
         displayLogin(false);
         displayLogout(true, handle);
