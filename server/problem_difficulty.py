@@ -11,11 +11,16 @@ def save_contest_info():
 
     for ID in contestList:
         contest_df = get_contest_elo(ID)
+        if(contest_df == None)
+            continue
+
+
 
 def get_contest_elo(contestID):
     contest_df = cf_api.getSolveSuccessDF(contestID)
     if(contest_df == None)
         return None
+
 
 
 
