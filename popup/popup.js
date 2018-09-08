@@ -26,46 +26,17 @@ function displayLogout(on, handle) {
 
 function changeHandle() {
     var handle = document.getElementById('handle').value;
-    alert(handle);
-
-    $.getJSON('?????/checkHandle?handle=' + handle, 
-    function(data, textStatus, jqXHR) {
-        alert(data);
-    }
-
-    /*
-    $.ajax({
-        type: "POST",
-        url: "../server/cf_api.py",
-        data: {param: handle}
-    }).done(function(o) {
-        alert(o);
-        if (!o.isValidUser(handle))
-            return;
-    });
-    alert("hi");
-    */
-
-    /*
-    $.ajax({
-        type:'get',
-        url:'/URLToTriggerGetRequestHandler',
-        cache:false,
-        async:'asynchronous',
-        dataType:'json',
-        success: function(data) {
-            console.log(JSON.stringify(data))
-        },
-        error: function(request, status, error) {
-            console.log("Error: " + error)
+    var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, 
+    function(data) {
+        if (data.result) {
+            chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
+                displayLogin(false);
+                displayLogout(true, handle);
+            });
         }
     });
-    */
-   
-    chrome.runtime.sendMessage({task: "changeHandle", handle: handle}, function(response) {
-        displayLogin(false);
-        displayLogout(true, handle);
-    });
+    console.log(heh);
+    console.log(heh.result);
 }
 
 function logout() {
