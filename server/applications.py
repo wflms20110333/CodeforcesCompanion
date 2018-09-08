@@ -1,9 +1,6 @@
 import helper
 from database import create_connection
 from flask import Flask, request, jsonify
-from flask_session import Session
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
 
 app = Flask(__name__)
 conn = create_connection("cf.db")
