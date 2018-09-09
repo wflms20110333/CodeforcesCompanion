@@ -8,11 +8,20 @@ import pandas as pd
 import cf_api
 
 # Adaptation of Rating Formula from Codeforces (https://codeforces.com/blog/entry/102)
+
+PERCENT_MISS = 0.2
+
+def get_partial_credit(r):
+    return np.max(0.0, r['solved']*1.0 - PERCENT_MISS *1.0* r['wrongSubs'])
+
 def get_solve_probability(userRating, problemRating):
     return 1.0 / (1.0 + np.power(10, (problemRating - userRating) / 400.0))
 
 def gen_id(contestID, problemID):
     return int(contestID) * 260 + (ord(problemID[0]) - 65) * 10 + (int(problemID[1]) if len(problemID) == 2 else 0)
+
+def rev_id(combinedID):
+    return int(combinedID / 260), chr(int(combinedID / 10) % 26 + 65) + (str(combinedID % 10) if combinedID % 10 != 0 else '')
 
 def save_contest_info():
     contestList = cf_api.getContestList()
@@ -86,18 +95,25 @@ def get_problem_elo(problem_df):
 
     return int(round((lo + hi) / 2.0))
 
-def get_user_elo(subdf):
-    numSolved = np.sum(subdf.apply(get_partial_credit, axis=1))
-    if not numSolved:
-        return 1000
-
+def get_user_elo(subdf, category_map):
+    if not len(category_map):
+        return 1500
+    numSolved = 0.0
+    for index, r in subdf.iterrows():
+        problemID = gen_id(r['contestID'], r['problemID'])
+        if problemID in category_map:
+            numSolved += r['solved'] * 1.0 - PERCENT_MISS * 1.0 * r['wrongSubs']
     lo = MIN_RATING
     hi = MAX_RATING
 
     for i in range(MAX_ITER):
         projected_elo = (lo + hi) / 2.0
-        subdf['personal_rating'] = projected_elo
-        expectedSolves = np.sum(subdf.apply(get_percent_solved, axis=1))
+        subdf['personalRating'] = projected_elo
+        expectedSolves = 0.0
+        for index, r in subdf.iterrows():
+            problemID = gen_id(r['contestID'], r['problemID'])
+            if problemID in category_map:
+                expectedSolves += (r['solved'] * 1.0 - PERCENT_MISS * 1.0 * r['wrongSubs']) * get_solve_probability(projected_elo, category_map[problemID])
         if expectedSolves > numSolved:
             lo = projected_elo
         else:
@@ -123,24 +139,22 @@ def suggest_problem(category, handle):
     category_map = {}
     for r in category_problems:
         category_map[int(r[1])] = int(r[2])
-    for index, r in subdf.iterrows():
-        problem_id = gen_id(r['contestID'], r['problemID'])
-        if problem_id in category_map:
-            r['in_tag'] = 1
-            r['rating'] = category_map[problem_id]
-        else:
-            r['in_tag'] = 0
-            r['rating'] = 0
 
-
-    personal_rating = get_user_elo(subdf)
+    personal_rating = get_user_elo(subdf, category_map)
     res = ''
+
+    print(personal_rating)
+
+    index_map = set()
+    for index, r in subdf.iterrows():
+        problemID = gen_id(r['contestID'], r['problemID'])
+        index_map.add(problemID)
+
+    for r in category_problems:
+        problemID = r[1]
+        if problemID not in index_map:
+            contestID, probl = rev_id(problemID)
+            return contestID, probl
+
     return 0, 'A'
 
-PERCENT_MISS = 0.2
-
-def get_percent_solved(r):
-    return get_partial_credit(r) * get_solved_probability(r['personal_rating'], r['rating'])
-
-def get_partial_credit(r):
-    return np.max(0.0, r['in_tag'] * (r['solved'] - PERCENT_MISS * r['wrongSubs']))
