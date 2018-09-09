@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import cf_api
-import pandas as pd
 
 categories = ['expression parsing','fft','two pointers','binary search','dsu','strings','number theory','data structures',
     'hashing','shortest paths','matrices','string suffix structures','graph matchings','dp','dfs and similar','meet-in-the-middle',

@@ -1,4 +1,5 @@
 import sqlite3
+import json
 from sqlite3 import Error
 from flask import jsonify
 
@@ -50,16 +51,31 @@ def query_tag(tag):
     try:
         conn = create_connection("cf.db")
         db = conn.cursor()
-        res = db.execute('SELECT * FROM problems WHERE tags regexp(".*?.*")', (str(tag))).fetchall()
+        res = db.execute('SELECT * FROM problems WHERE tags LIKE "%' + str(tag) +'%"').fetchall()
         if not res:
-            return jsonify({})
+            return []
         conn.close()
         return res
     except Error as e:
         print(e)
     finally:
         conn.close()
+    return []
 
+def get_rating(problemID):
+    try:
+        conn = create_connection("cf.db")
+        db = conn.cursor()
+        res = db.execute("SELECT * FROM problems WHERE problemID = " + str(problemID)).fetchall()
+        if not res:
+            return 1500
+        conn.close()
+        return res[0][2]
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
+    return 1500
 def search(contestID, index, problemID):
     try:
         conn = create_connection("cf.db")
