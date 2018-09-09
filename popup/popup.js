@@ -26,14 +26,28 @@ function displayLogout(on, handle) {
 
 function tryToChangeHandle() {
     var handle = document.getElementById('handle').value;
-    var heh = $.getJSON('http://server-20-annguyencompsci.c9users.io:8080/checkHandle?handle=' + handle, null,
-    function(data) {
-        alert(JSON.stringify(data))
-        if (data.yay)
-            changeHandle(handle);
-        else
-            alert("Invalid Handle!");
-    }).fail(() => {alert("fail")})
+    $.ajax({
+        dataType: "json",
+        url: 'http://127.0.0.1:5000/checkHandle?handle=' + handle,
+        data: null,
+        async: false,
+        success: function(data) {
+            if (data.yay)
+                changeHandle(handle);
+            else
+                alert("Invalid Handle!");
+        }
+    });
+
+    //fetch('http://127.0.0.1:5000/checkHandle?handle=' + handle).then(fcn).catch((err) => {alert(JSON.stringify(error))});
+    /*
+    fetch('http://127.0.0.1:5000/checkHandle?handle=' + handle).then(
+        function(response){
+            return response.json();
+        }
+    ).then(fcn);
+    */
+    //$.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, null, fcn);
 }
 
 function changeHandle(handle) {
