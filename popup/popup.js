@@ -84,15 +84,16 @@ function selectCategory() {
     if (tag == "")
         alert("Please select a category.");
     else {
-        var handle = document.getElementById('handle').value;
-        $.ajax({
-            dataType: "json",
-            url: server_url + 'getProblem?handle=' + handle + '&tag=' + tag,
-            data: null,
-            async: false,
-            success: function(data) {
-                chrome.runtime.sendMessage({task: "changeSuggestedProblem", number: data.number, letter: data.letter}, function(response) {});
-            }
+        chrome.runtime.sendMessage({task: "checkState"}, function(response) {
+            $.ajax({
+                dataType: "json",
+                url: server_url + 'suggest?handle=' + response.handle + '&tag=' + tag,
+                data: null,
+                async: false,
+                success: function(data) {
+                    chrome.runtime.sendMessage({task: "changeSuggestedProblem", number: data.number, letter: data.letter}, function(response) {});
+                }
+            });
         });
     }
 }

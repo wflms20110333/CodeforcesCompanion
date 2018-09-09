@@ -129,9 +129,9 @@ categories = ['expression parsing','fft','two pointers','binary search','dsu','s
     'chinese remainder theorem']
 
 def suggest_problem(category, handle):
-    if(not cf_api.isValidUser(handle)):
+    if not cf_api.isValidUser(handle):
         raise ValueError("Invalid Handle")
-    if(category not in categories):
+    if category not in categories:
         raise ValueError("Invalid Error")
 
     subdf = cf_api.getUserSubmissions(handle)
@@ -169,4 +169,3 @@ def suggest_problem(category, handle):
     if pid != -1:
         return rev_id(pid)
     return 0, 'A'
-

@@ -41,16 +41,5 @@ def update():
 
 @app.route('/suggest')
 def suggest():
-    if request.args['handle'] and request.args['tag']:
-        number, letter = suggest_problem(request.args['tag'], request.args['handle'])
-        return jsonify({
-            'number' : number,
-            'letter' : letter
-        });
-    return jsonify({})
-
-@app.route("/getProblem")
-def getProblem():
-    handle = request.args['handle']
-    tag = request.args['tag']
-    return jsonify({'number': 101, 'letter': 'C'})
+    number, letter = suggest_problem(request.args['tag'], request.args['handle'])
+    return jsonify({'number' : number, 'letter' : letter})
