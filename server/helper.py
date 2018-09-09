@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 #Adapted from yjiao's application of the CF API (https://github.com/yjiao/codeforces-api)
 from database import query_tag, get_rating
 import numpy as np

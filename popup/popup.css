@@ -1,6 +1,11 @@
+/*
+ * This file is part of Codeforces Companion (Coco),
+ * Copyright (C) 2018-present Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou
+ */
+
 body
 {
-    min-width: 200px;
+    min-width: 330px;
 }
 
 .hoverable
@@ -27,5 +32,6 @@ header img
 header h2
 {
     position: relative;
-    padding-left: 30px;
+    padding-top: 5px;
+    padding-left: 42px;
 }

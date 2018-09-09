@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 import json
 from helper import suggest_problem, gen_id
 from database import create_connection, search, insert_entry, update_entry

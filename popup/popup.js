@@ -1,3 +1,10 @@
+/*
+ * This file is part of Codeforces Companion (Coco),
+ * Copyright (C) 2018-present Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou
+ */
+
+var server_url = "http://127.0.0.1:5000/";
+
 chrome.runtime.sendMessage({task: "checkState"}, function(response) {
     displayProblemSuggestion(response.number, response.letter);
     if (response.handle == null)
@@ -38,7 +45,7 @@ function tryToChangeHandle() {
     var handle = document.getElementById('handle').value;
     $.ajax({
         dataType: "json",
-        url: 'http://127.0.0.1:5000/checkHandle?handle=' + handle,
+        url: server_url + 'checkHandle?handle=' + handle,
         data: null,
         async: false,
         success: function(data) {
@@ -93,7 +100,11 @@ function logout() {
 
 function openSuggestedProblem() {
     chrome.runtime.sendMessage({task: "getSuggestedProblem"}, function(response) {
-        var win = window.open(response.URL, '_blank');
-        win.focus();
+        if (response.URL == null)
+            alert("Please select a category to suggest a problem in first!");
+        else {
+            var win = window.open(response.URL, '_blank');
+            win.focus();
+        }
     });
 }

@@ -1,6 +1,6 @@
 /*
- * This file is part of name <link>,
- * Copyright (C) 2018-present A. Arjun, R. Guo, A. Nguyen, E. Zou
+ * This file is part of Codeforces Companion (Coco),
+ * Copyright (C) 2018-present Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou
  */
 
 var handle = null;
@@ -26,9 +26,6 @@ chrome.runtime.onMessage.addListener(
             number = request.number;
             letter = request.letter;
             suggestedProblemURL = "http://codeforces.com/problemset/problem/" + number + "/" + letter;
-            alert("number = " + number);
-            alert("letter = " + letter);
-            alert("url = " + suggestedProblemURL);
         }
         else if (request.task == "getSuggestedProblem") {
             sendResponse({number: number, letter: letter, URL: suggestedProblemURL});

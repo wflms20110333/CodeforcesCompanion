@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 import cf_api
 import re
 
