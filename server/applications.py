@@ -1,5 +1,5 @@
 import helper
-from database import create_connection, search, insert_entry, update_entry
+from database import create_connection, search, insert_entry, update_entry, query_tag
 from flask import Flask, request, jsonify
 import cf_api
 
@@ -19,8 +19,9 @@ def lookup():
 
 @app.route('/insert')
 def insert():
-    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    insert_entry(look_id, request.args['rating'], request.args['tags'])
+    if request.args['contestid'] and request.args['index']:
+        look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+        insert_entry(look_id, request.args['rating'], request.args['tags'])
     return 'hi'
 
 @app.route("/checkHandle")
@@ -29,6 +30,13 @@ def checkHandle():
 
 @app.route('/update')
 def update():
-    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    update_entry(look_id, request.args['rating'], request.args['tags'])
+    if request.args['contestid'] and request.args['index']:
+        look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+        update_entry(look_id, request.args['rating'], request.args['tags'])
     return 'hi'
+
+@app.route('/looktag')
+def looktag():
+    if request.args['tag']:
+        return query_tag(request.args['tag'])
+    return jsonify({})
