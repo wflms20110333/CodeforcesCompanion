@@ -1,6 +1,6 @@
 body
 {
-    min-width: 250px;
+    min-width: 330px;
 }
 
 .hoverable
@@ -27,5 +27,6 @@ header img
 header h2
 {
     position: relative;
-    padding-left: 30px;
+    padding-top: 5px;
+    padding-left: 42px;
 }
