@@ -46,6 +46,20 @@ def update_entry(problemID, rating, tags):
     finally:
         conn.close()
 
+def query_tag(tag):
+    try:
+        conn = create_connection("cf.db")
+        db = conn.cursor()
+        res = db.execute('SELECT * FROM problems WHERE tags regexp(".*?.*")', (str(tag))).fetchall()
+        if not res:
+            return jsonify({})
+        conn.close()
+        return res
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
+
 def search(contestID, index, problemID):
     try:
         conn = create_connection("cf.db")

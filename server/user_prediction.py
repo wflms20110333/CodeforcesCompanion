@@ -20,12 +20,11 @@ def estimate_skill(category, handle):
         raise ValueError("Invalid Error")
 
     subdf = cf_api.getUserSubmissions(handle)
-    problemdf = pd.load_csv('problems_with_difficulties.csv')
 
     category_problems = {}
 
 
 
 PERCENT_MISS = 0.2
-def get_partial_credit(misses):
-    return np.max(0.0, 1.0 - PERCENT_MISS * misses)
+def get_partial_credit(r):
+    return np.max(0.0, r['solved'] - PERCENT_MISS * r['wrongSubs'])
