@@ -5,8 +5,9 @@ chrome.runtime.sendMessage({task: "checkState"}, function(response) {
         displayLogout(true, response.handle);
 });
 
-document.getElementById('login').addEventListener('submit', tryToChangeHandle);
-document.getElementById('logout').addEventListener('click', logout);
+$('#selectCategory')[0].addEventListener('submit', selectCategory);
+$('#login')[0].addEventListener('submit', tryToChangeHandle);
+$('#logout')[0].addEventListener('click', logout);
 
 function displayLogin(on) {
     if (on)
@@ -57,14 +58,18 @@ function changeHandle(handle) {
     });
 }
 
+function selectCategory() {
+    var e = document.getElementById("categoriesDropdown");
+    var str = e.options[e.selectedIndex].value;
+    if (str == "")
+        alert("Please select a category.");
+    else
+        alert(str);
+}
+
 function logout() {
     chrome.runtime.sendMessage({task: "logout"}, function(response) {
         displayLogin(true);
         displayLogout(false, null);
     });
-}
-
-function openOptions() {
-    var win = window.open("../options/options.html", '_blank');
-    win.focus();
 }
