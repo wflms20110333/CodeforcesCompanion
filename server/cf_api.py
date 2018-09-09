@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 #Adapted from yjiao's application of the CF API (https://github.com/yjiao/codeforces-api)
 
 # # Contest Parser v1
@@ -8,7 +11,7 @@
 # handle0 | 1234 | 633 | A | 1
 # handle0 | 1234 | 633 | B | 1
 # handle0 | 1234 | 633 | C | 0
-# 
+#
 
 import os
 import re

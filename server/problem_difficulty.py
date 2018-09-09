@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 #Adapted from yjiao's application of the CF API (https://github.com/yjiao/codeforces-api)
 import numpy as np
 import pandas as pd
