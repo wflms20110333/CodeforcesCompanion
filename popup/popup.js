@@ -32,7 +32,7 @@ function tryToChangeHandle() {
         data: null,
         async: false,
         success: function(data) {
-            if (data.yay)
+            if (data.valid)
                 changeHandle(handle);
             else
                 alert("Invalid Handle!");
