@@ -9,7 +9,8 @@ import cf_api
 
 # Adaptation of Rating Formula from Codeforces (https://codeforces.com/blog/entry/102)
 
-PERCENT_MISS = 0.2
+PERCENT_MISS = 1.0 / 3.0
+MIN_PROB = .1
 
 def get_partial_credit(r):
     return np.max(0.0, r['solved']*1.0 - PERCENT_MISS *1.0* r['wrongSubs'])
@@ -113,11 +114,11 @@ def get_user_elo(subdf, category_map):
         for index, r in subdf.iterrows():
             problemID = gen_id(r['contestID'], r['problemID'])
             if problemID in category_map:
-                expectedSolves += (r['solved'] * 1.0 - PERCENT_MISS * 1.0 * r['wrongSubs']) * get_solve_probability(projected_elo, category_map[problemID])
+                expectedSolves += max(0, r['solved'] * 1.0 - PERCENT_MISS * 1.0 * r['wrongSubs']) * get_solve_probability(projected_elo, category_map[problemID])
         if expectedSolves > numSolved:
-            lo = projected_elo
-        else:
             hi = projected_elo
+        else:
+            lo = projected_elo
     return int(round((lo + hi) / 2.0))
 
 
@@ -143,18 +144,29 @@ def suggest_problem(category, handle):
     personal_rating = get_user_elo(subdf, category_map)
     res = ''
 
-    print(personal_rating)
-
     index_map = set()
     for index, r in subdf.iterrows():
         problemID = gen_id(r['contestID'], r['problemID'])
         index_map.add(problemID)
-
+    pid = -1
+    chance = 1.1
     for r in category_problems:
         problemID = r[1]
         if problemID not in index_map:
-            contestID, probl = rev_id(problemID)
-            return contestID, probl
-
+            prob = get_solve_probability(personal_rating, r[2])
+            if chance > prob and prob > MIN_PROB:
+                chance = prob
+                pid = problemID
+    if pid != -1:
+        return rev_id(pid)
+    for r in category_problems:
+        problemID = r[1]
+        if problemID not in index_map:
+            prob = get_solve_probability(personal_rating, r[2])
+            if chance > prob:
+                chance = prob
+                pid = problemID
+    if pid != -1:
+        return rev_id(pid)
     return 0, 'A'
 
