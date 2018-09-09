@@ -93,7 +93,11 @@ function logout() {
 
 function openSuggestedProblem() {
     chrome.runtime.sendMessage({task: "getSuggestedProblem"}, function(response) {
-        var win = window.open(response.URL, '_blank');
-        win.focus();
+        if (response.URL == null)
+            alert("Please select a category to suggest a problem in first!");
+        else {
+            var win = window.open(response.URL, '_blank');
+            win.focus();
+        }
     });
 }
