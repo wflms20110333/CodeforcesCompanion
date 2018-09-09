@@ -48,3 +48,9 @@ def suggest():
             'letter' : letter
         });
     return jsonify({})
+
+@app.route("/getProblem")
+def getProblem():
+    handle = request.args['handle']
+    tag = request.args['tag']
+    return jsonify({'number': 101, 'letter': 'C'})

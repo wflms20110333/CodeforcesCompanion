@@ -84,10 +84,16 @@ function selectCategory() {
     if (tag == "")
         alert("Please select a category.");
     else {
-        // call function with handle
-        var number = 1000;
-        var letter = "A";
-        chrome.runtime.sendMessage({task: "changeSuggestedProblem", number: number, letter: letter}, function(response) {});
+        var handle = document.getElementById('handle').value;
+        $.ajax({
+            dataType: "json",
+            url: server_url + 'getProblem?handle=' + handle + '&tag=' + tag,
+            data: null,
+            async: false,
+            success: function(data) {
+                chrome.runtime.sendMessage({task: "changeSuggestedProblem", number: data.number, letter: data.letter}, function(response) {});
+            }
+        });
     }
 }
 
