@@ -25,8 +25,6 @@ def estimate_skill(category, handle):
 
     category_problems = {}
 
-
-
 PERCENT_MISS = 0.2
 def get_partial_credit(r):
     return np.max(0.0, r['solved'] - PERCENT_MISS * r['wrongSubs'])

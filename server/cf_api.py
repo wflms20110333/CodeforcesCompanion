@@ -22,7 +22,6 @@ import pandas as pd
 import re
 from collections import defaultdict
 
-
 def getProblemDataFromContest(contestID):
     url = 'http://codeforces.com/api/contest.standings?contestId=' + str(contestID) + '&from=1&count=1'
     r = requests.request('GET', url).json()['result']
@@ -38,7 +37,6 @@ def getProblemDataFromContest(contestID):
     probdf['startTimeSeconds'] = startTimeSeconds
 
     return probdf
-
 
 def getSolveSuccessDF(contestID):
 
@@ -92,7 +90,6 @@ def getSolveSuccessDF(contestID):
 
     output = pd.DataFrame.from_dict(array_out)
     return output
-
 
 def getContestList():
     url_contest = 'http://codeforces.com/api/contest.list?gym=false'
