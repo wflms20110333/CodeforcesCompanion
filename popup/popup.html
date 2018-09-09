@@ -27,16 +27,54 @@
 
     <hr/>
 
-    <div class="hoverable" id="change">
-        <span>Change Category</span>
-    </div>
+    <form id="selectCategory" style="display: block;">
+        <label>Select Category:</label>
+        <select>
+            <option value="2-sat">2-sat</option>
+            <option value="binary search">binary search</option>
+            <option value="bitmasks">bitmasks</option>
+            <option value="brute force">brute force</option>
+            <option value="chinese remainder theorem">chinese remainder theorem</option>
+            <option value="combinatorics">combinatorics</option>
+            <option value="constructive algorithms">constructive algorithms</option>
+            <option value="data structures">data structures</option>
+            <option value="dfs and similar">dfs and similar</option>
+            <option value="divide and conquer">divide and conquer</option>
+            <option value="dp">dp</option>
+            <option value="dsu">dsu</option>
+            <option value="expression parsing">expression parsing</option>
+            <option value="fft">fft</option>
+            <option value="flows">flows</option>
+            <option value="games">games</option>
+            <option value="geometry">geometry</option>
+            <option value="graph matchings">graph matchings</option>
+            <option value="graphs">graphs</option>
+            <option value="greedy">greedy</option>
+            <option value="hashing">hashing</option>
+            <option value="implementation">implementation</option>
+            <option value="math">math</option>
+            <option value="matrices">matrices</option>
+            <option value="meet-in-the-middle">meet-in-the-middle</option>
+            <option value="number theory">number theory</option>
+            <option value="probabilities">probabilities</option>
+            <option value="schedules">schedules</option>
+            <option value="shortest paths">shortest paths</option>
+            <option value="sortings">sortings</option>
+            <option value="string suffix structures">string suffix structures</option>
+            <option value="strings">strings</option>
+            <option value="ternary search">ternary search</option>
+            <option value="trees">trees</option>
+            <option value="two pointers">two pointers</option>
+        </select>
+        <input type="submit" value="Suggest Problem!" />
+    </form>
 
     <hr/>
 
     <form id="login" style="display: none;">
         <label for="handle">Handle:</label>
         <input type="text" id="handle" name="handle" size="15" value="" />
-        <input id="save" type="submit" value="Login" />
+        <input type="submit" value="Login" />
     </form>
 
     <div id="logoutDisplay" style="display: none;">
