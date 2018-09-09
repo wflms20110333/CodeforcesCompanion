@@ -1,5 +1,6 @@
-import helper
-from database import create_connection, search, insert_entry, update_entry, query_tag
+import json
+from helper import suggest_problem, gen_id
+from database import create_connection, search, insert_entry, update_entry
 from flask import Flask, request, jsonify
 import cf_api
 
@@ -15,14 +16,14 @@ def lookup():
         return jsonify({})
     if request.args['index'] is None:
         return jsonify({})
-    return search(request.args['contestid'], request.args['index'], helper.gen_id(request.args['contestid'], request.args['index']))
+    return search(request.args['contestid'], request.args['index'], gen_id(request.args['contestid'], request.args['index']))
 
 @app.route('/insert')
 def insert():
-    if request.args['contestid'] and request.args['index']:
-        look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+    if request.args['contestid'] and request.args['index'] and request.args['rating'] and request.args['tags']:
+        look_id = gen_id(request.args['contestid'], request.args['index'])
         insert_entry(look_id, request.args['rating'], request.args['tags'])
-    return 'hi'
+    return 'done'
 
 @app.route("/checkHandle")
 def checkHandle():
@@ -30,13 +31,17 @@ def checkHandle():
 
 @app.route('/update')
 def update():
-    if request.args['contestid'] and request.args['index']:
-        look_id = helper.gen_id(request.args['contestid'], request.args['index'])
+    if request.args['contestid'] and request.args['index'] and request.args['rating'] and request.args['tags']:
+        look_id = gen_id(request.args['contestid'], request.args['index'])
         update_entry(look_id, request.args['rating'], request.args['tags'])
-    return 'hi'
+    return 'done'
 
-@app.route('/looktag')
-def looktag():
-    if request.args['tag']:
-        return query_tag(request.args['tag'])
+@app.route('/suggest')
+def suggest():
+    if request.args['handle'] and request.args['tag']:
+        number, letter = suggest_problem(request.args['tag'], request.args['handle'])
+        return jsonify({
+            'number' : number,
+            'letter' : letter
+        });
     return jsonify({})
