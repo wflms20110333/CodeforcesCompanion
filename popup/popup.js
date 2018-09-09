@@ -59,12 +59,17 @@ function changeHandle(handle) {
 }
 
 function selectCategory() {
+    if (document.getElementById("login").style.display == "block") {
+        alert("Please login first.");
+        return;
+    }
     var e = document.getElementById("categoriesDropdown");
-    var str = e.options[e.selectedIndex].value;
-    if (str == "")
+    var tag = e.options[e.selectedIndex].value;
+    if (tag == "")
         alert("Please select a category.");
-    else
-        alert(str);
+    else {
+        // call function with handle
+    }
 }
 
 function logout() {
