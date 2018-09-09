@@ -26,9 +26,6 @@ chrome.runtime.onMessage.addListener(
             number = request.number;
             letter = request.letter;
             suggestedProblemURL = "http://codeforces.com/problemset/problem/" + number + "/" + letter;
-            alert("number = " + number);
-            alert("letter = " + letter);
-            alert("url = " + suggestedProblemURL);
         }
         else if (request.task == "getSuggestedProblem") {
             sendResponse({number: number, letter: letter, URL: suggestedProblemURL});
