@@ -119,7 +119,7 @@ def suggest_problem(category, handle):
 
     category_map = {}
     for r in category_problems:
-        category_map[int(r[1])] = int(r[2])
+        category_map[r[1]] = r[2]
     for index, r in subdf.iterrows():
         problem_id = gen_id(r['contestID'], r['problemID'])
         if problem_id in category_map:
