@@ -28,13 +28,12 @@ function tryToChangeHandle() {
     var handle = document.getElementById('handle').value;
     var heh = $.getJSON('http://127.0.0.1:5000/checkHandle?handle=' + handle, null,
     function(data) {
+        alert(JSON.stringify(data))
         if (data.yay)
             changeHandle(handle);
         else
             alert("Invalid Handle!");
-    }).fail(alert);
-    alert(heh);
-    alert(heh.result); // IDEK WHAT'S GOING ON MAN
+    }).fail(() => {alert("fail")})
 }
 
 function changeHandle(handle) {
