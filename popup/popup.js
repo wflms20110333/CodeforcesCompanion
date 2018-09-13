@@ -33,7 +33,7 @@ function tryToChangeHandle() {
             changeHandle(handle);
         else
             alert("Invalid Handle!");
-    }).fail(() => {alert("fail")})
+    }).fail(() => {alert("fail")});
 }
 
 function changeHandle(handle) {
