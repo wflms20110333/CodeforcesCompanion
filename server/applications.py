@@ -1,11 +1,13 @@
-import helper
-from database import create_connection
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
+import json
+from helper import suggest_problem, gen_id
+from database import create_connection, search, insert_entry, update_entry
 from flask import Flask, request, jsonify
 import cf_api
 
 app = Flask(__name__)
-conn = create_connection("cf.db")
-db = conn.cursor()
 
 @app.route('/')
 def index():
@@ -14,36 +16,30 @@ def index():
 @app.route('/look')
 def lookup():
     if request.args['contestid'] is None:
-        return 'hi'
+        return jsonify({})
     if request.args['index'] is None:
-        return 'hello'
-    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    res = db.execute("SELECT * FROM problems WHERE id = {0}".format(look_id)).fetchall()
-    if not res:
-        return 'ur bad'
-    return jsonify({
-        'contestID' : request.args['contestid'],
-        'index' : request.args['index'],
-        'rating' : res[0][1],
-        'tags' : res[0][2]
-    })
+        return jsonify({})
+    return search(request.args['contestid'], request.args['index'], gen_id(request.args['contestid'], request.args['index']))
 
 @app.route('/insert')
 def insert():
-    if not request.args['contestid'] or not request.args['index'] or not request.args['rating'] or not request.args['tags']:
-        return None
-    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    res = db.execute("INSERT INTO problems (id, rating, tags) VALUES ({0}, {1}, {2})".format(look_id, request.args['rating'], request.args['tags']))
-    return 'hello'
+    if request.args['contestid'] and request.args['index'] and request.args['rating'] and request.args['tags']:
+        look_id = gen_id(request.args['contestid'], request.args['index'])
+        insert_entry(look_id, request.args['rating'], request.args['tags'])
+    return 'done'
 
 @app.route("/checkHandle")
 def checkHandle():
-    return jsonify({'yay': cf_api.isValidUser(request.args['handle'])})
+    return jsonify({'valid': cf_api.isValidUser(request.args['handle']), 'handle': request.args['handle']})
 
 @app.route('/update')
 def update():
-    if not request.args['contestid'] or not request.args['index'] or not request.args['rating'] or not request.args['tags']:
-        return None
-    look_id = helper.gen_id(request.args['contestid'], request.args['index'])
-    res = db.execute("UPDATE INTO problems (id, rating, tags) VALUES ({}, {}, {})".format(
-        look_id, request.args['rating'], request.args['tags']))
+    if request.args['contestid'] and request.args['index'] and request.args['rating'] and request.args['tags']:
+        look_id = gen_id(request.args['contestid'], request.args['index'])
+        update_entry(look_id, request.args['rating'], request.args['tags'])
+    return 'done'
+
+@app.route('/suggest')
+def suggest():
+    number, letter = suggest_problem(request.args['tag'], request.args['handle'])
+    return jsonify({'number' : number, 'letter' : letter})

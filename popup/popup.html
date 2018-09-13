@@ -1,6 +1,6 @@
 <!--
-  - This file is part of /*name*/ </*link*/>,
-  - Copyright (C) 2018-present A. Arjun, R. Guo, A. Nguyen, E. Zou
+  - This file is part of Codeforces Companion (Coco),
+  - Copyright (C) 2018-present Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou
   -->
 
 <!DOCTYPE html>
@@ -9,45 +9,80 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="popup.css">
-    <title>CfShenanigans</title>
+    <title>Codeforces Companion (Coco)</title>
 </head>
 
 <!-- Set tabindex to work around Chromium issue 304532 -->
 <body tabindex="1" class="local">
     <header>
-        <img id="logo" src="../icon.png" srcset="../icon.png 8x"/>
-        <h2>CfShenanigans</h2>
+        <img id="logo" src="../icons/icon.png" srcset="../icons/icon.png 8x"/>
+        <h2>Codeforces Companion (Coco)</h2>
     </header>
 
-    <div class="hoverable" id="suggested" style="display: block;">
-        <span>Suggested Problem:</span><br>
-        <span>A. Game</span><br>
-        <span>Codeforces Round #483 (Div. 2)</span>
+    <div id="openProblem" class="hoverable" style="display: block;">
+        <span id="suggested">Suggested Problem: N/A</span>
     </div>
 
     <hr/>
 
-    <div class="hoverable" id="change">
-        <span>Change Category</span>
-    </div>
+    <form id="selectCategory" style="display: block;">
+        <label>Select Category:</label>
+        <select id="categoriesDropdown">
+            <option value="" selected disabled hidden>Choose here</option>
+            <option value="2-sat">2-sat</option>
+            <option value="binary search">binary search</option>
+            <option value="bitmasks">bitmasks</option>
+            <option value="brute force">brute force</option>
+            <option value="chinese remainder theorem">chinese remainder theorem</option>
+            <option value="combinatorics">combinatorics</option>
+            <option value="constructive algorithms">constructive algorithms</option>
+            <option value="data structures">data structures</option>
+            <option value="dfs and similar">dfs and similar</option>
+            <option value="divide and conquer">divide and conquer</option>
+            <option value="dp">dp</option>
+            <option value="dsu">dsu</option>
+            <option value="expression parsing">expression parsing</option>
+            <option value="fft">fft</option>
+            <option value="flows">flows</option>
+            <option value="games">games</option>
+            <option value="geometry">geometry</option>
+            <option value="graph matchings">graph matchings</option>
+            <option value="graphs">graphs</option>
+            <option value="greedy">greedy</option>
+            <option value="hashing">hashing</option>
+            <option value="implementation">implementation</option>
+            <option value="math">math</option>
+            <option value="matrices">matrices</option>
+            <option value="meet-in-the-middle">meet-in-the-middle</option>
+            <option value="number theory">number theory</option>
+            <option value="probabilities">probabilities</option>
+            <option value="schedules">schedules</option>
+            <option value="shortest paths">shortest paths</option>
+            <option value="sortings">sortings</option>
+            <option value="string suffix structures">string suffix structures</option>
+            <option value="strings">strings</option>
+            <option value="ternary search">ternary search</option>
+            <option value="trees">trees</option>
+            <option value="two pointers">two pointers</option>
+        </select>
+        <input type="submit" value="Suggest Problem!" />
+    </form>
 
     <hr/>
 
     <form id="login" style="display: none;">
         <label for="handle">Handle:</label>
-        <input type="text" id="handle" name="handle" size="15" value="" />
-        <input id="save" type="submit" value="Login" />
+        <input type="text" id="handle" name="handle" size="25" value="" />
+        <input type="submit" value="Login" />
     </form>
 
     <div id="logoutDisplay" style="display: none;">
         <span id="handleDisplay"></span>
-        <div class="hoverable" id="logout">
-            <span>Logout</span>
-        </div>
+        <input id="logout" type="submit" value="Logout" />
     </div>
+
+    <script src="../source/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src= "popup.js"></script>
 </body>
 
 </html-->
-
-<script src="../source/jquery-3.3.1.js"></script>
-<script type="text/javascript" src= "popup.js"></script>

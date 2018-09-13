@@ -1,3 +1,6 @@
+__author__ = "Aditya Arjun, Richard Guo, An Nguyen, Elizabeth Zou"
+__copyright__ = "Copyright 2018-present, Codeforces Companion (Coco)"
+
 #Adapted from yjiao's application of the CF API (https://github.com/yjiao/codeforces-api)
 
 # # Contest Parser v1
@@ -8,7 +11,7 @@
 # handle0 | 1234 | 633 | A | 1
 # handle0 | 1234 | 633 | B | 1
 # handle0 | 1234 | 633 | C | 0
-# 
+#
 
 import os
 import re
@@ -16,9 +19,8 @@ import sys
 import time
 import requests
 import pandas as pd
-
+import re
 from collections import defaultdict
-
 
 def getProblemDataFromContest(contestID):
     url = 'http://codeforces.com/api/contest.standings?contestId=' + str(contestID) + '&from=1&count=1'
@@ -35,7 +37,6 @@ def getProblemDataFromContest(contestID):
     probdf['startTimeSeconds'] = startTimeSeconds
 
     return probdf
-
 
 def getSolveSuccessDF(contestID):
 
@@ -90,7 +91,6 @@ def getSolveSuccessDF(contestID):
     output = pd.DataFrame.from_dict(array_out)
     return output
 
-
 def getContestList():
     url_contest = 'http://codeforces.com/api/contest.list?gym=false'
     r = requests.get(url_contest)  # there are some issues with Russian letters in contest names
@@ -106,3 +106,39 @@ def isValidUser(handle):
     info = r.json()
 
     return 'result' in info
+
+def getUserSubmissions(handle):
+    MAX_COUNT = 750
+    url = 'https://codeforces.com/api/user.status?handle=' + handle + '&count=' + str(MAX_COUNT)
+    r = requests.get(url)
+
+    submissions = r.json()['result']
+
+    dict_out = {}
+    for row in submissions:
+        ID = str(row['problem']['contestId']) + row['problem']['index']
+        if not ID in dict_out:
+            dict_out[ID] = []
+            dict_out[ID].append(0)
+            dict_out[ID].append(False)
+            dict_out[ID].append(row['problem']['tags'])
+
+        if row['verdict'] == 'OK':
+            dict_out[ID][1] = True
+        else:
+            dict_out[ID][0] += 1
+
+    out = []
+
+    for k in dict_out.keys():
+        ind = re.search('[A-Z]', k).start()
+
+        row = dict.fromkeys(['contestID','problemID', 'tags','wrongSubs', 'solved'])
+        row['contestID'] = k[0:ind]
+        row['problemID'] = k[ind:]
+        row['wrongSubs'] = dict_out[k][0]
+        row['solved'] = int(dict_out[k][1])
+        row['tags'] = dict_out[k][2]
+        out.append(row)
+
+    return pd.DataFrame.from_dict(out)
