@@ -4,6 +4,8 @@ Developed at PennApps XVIII (2018 Fall), Codeforces Companion (Coco) is a Chrome
 
 Created and demoed at PennApps XVIII (https://devpost.com/software/codeforces-problem-suggestion).
 
+[Presentation](https://docs.google.com/presentation/d/1Xq6MULkrmYIlpuoTL25BbAv4fSqa03SkrC9pptsLrpQ/edit?usp=sharing)
+
 ## Getting Started
 
 To run the back-end server locally, you will need to have Python 3.6 and several other requirements installed.
