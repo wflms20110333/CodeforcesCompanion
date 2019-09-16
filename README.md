@@ -2,6 +2,8 @@
 
 Developed at PennApps XVIII (2018 Fall), Codeforces Companion (Coco) is a Chrome Extension that suggests programming problems near your skill level based on similarly categorized problems that you have solved in the past. Coco applies a mathematical model that we developed using binary search to determine problem difficulties and user skill based on real-life submission data gathered using the Codeforces API.
 
+Created and demoed at PennApps XVIII (https://devpost.com/software/codeforces-problem-suggestion).
+
 ## Getting Started
 
 To run the back-end server locally, you will need to have Python 3.6 and several other requirements installed.
